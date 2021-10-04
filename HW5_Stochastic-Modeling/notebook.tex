@@ -1,0 +1,907 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW\_7-8-27\_Stochastic-modeling}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{BEBI5009 Homework 5}\label{bebi5009-homework-5}
+
+Student: Shao-Ting Chiu
+
+Student ID: B03901045
+
+Source Code on Github:
+https://github.com/stevengogogo/BEBI-5009-Mathematical-Biology
+
+Reference: B. P.Ingalls, Mathematical Modelling in Systems Biology : An
+Introduction, vol. 53, no. 9. 2014.
+
+    \subsection{Problem 1 - Noise-induced
+oscillation}\label{problem-1---noise-induced-oscillation}
+
+    
+
+    \subsection{1.(a) Simulation by Gillepie algorithm and First-reaction
+method}\label{a-simulation-by-gillepie-algorithm-and-first-reaction-method}
+
+\begin{itemize}
+\item
+  \textbf{Proof of First-reaction method}:
+
+  \begin{itemize}
+  \item
+    Sampling by summation of propensities:
+    \[P(0<T_{sum}<t) = 1 - e^{-\alpha t}\]
+  \item
+    Sampling by the first-reaction method: \[T_{wait}=min(T_1,...,T_m)\]
+    where \(P(0<T_i<t) = 1-e^{-\alpha_{i}t}\)
+  \end{itemize}
+
+  We need to show that \(P(0 < T_{wait} < t) = P(0 < T_{sum} < t)\) ,
+\end{itemize}
+
+\begin{align}
+P(0<T_{wait}<t) &= 1 - P(T_{wait} \geq t) \\
+                &= 1 - P(min\{T_1,...,T_m\} \geq t) \\
+                &= 1 - P(T_1 \geq t \cap ... \cap T_m) \\
+\end{align}
+
+Because \(T_i,...,T_m\) are independent variables,
+
+\begin{align}
+P(0<T_{wait}<t) &= 1 - P(T_1 \geq t)...P(T_m \geq t) \\
+                &= 1 - \bigcap_{i=1}^{m}P(T_{i} \geq t) \\
+                &= 1 - \bigcap_{i=1}^{m}(1-(1-e^{-\alpha_{i} t})) \\
+                &= 1 - \bigcap_{i=1}^{m}e^{-\alpha_{i} t} \\
+                &= 1 - e^{-(\sum_{i}^{m}\alpha_{i}t)} \\
+                &= 1 - e^{-\alpha t} \\
+                & = P(0<T_{sum}<t) \\
+\end{align}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Parameters}:
+\end{itemize}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Parameter & Value & Notation in code\tabularnewline
+\midrule
+\endhead
+\(\gamma_{A}\) & 250 & y\_a\tabularnewline
+\(b_{A}\) & 5 & b\_a\tabularnewline
+\(K_A\) & 0.5 & k\_a\tabularnewline
+\(\alpha_0\) & 0.1 & a\_0\tabularnewline
+\(\delta_{A}\) & 1 & d\_a\tabularnewline
+\(\gamma_R\) & 50 & y\_r\tabularnewline
+\(b_R\) & 10 & b\_r\tabularnewline
+\(K_R\) & 1 & k\_r\tabularnewline
+\(K_c\) & 200 & k\_c\tabularnewline
+\(\delta_R\) & 0.1 & d\_r\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Variables}:
+\end{itemize}
+
+\[A + R -> C\]
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Variable & Initial Value & Notation in code\tabularnewline
+\midrule
+\endhead
+A & 0 & N\_A\tabularnewline
+R & 0 & N\_R\tabularnewline
+C & 0 & N\_C\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Vector \& Matrix}:
+\end{itemize}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Matrix & Content & Notation in code\tabularnewline
+\midrule
+\endhead
+\(\vec{N}\) & State vector: \([N_1,...,N_u]^{T}\) & N\tabularnewline
+\(\textbf{S}\) & Stoichiometry matrix \([\vec{S_1},...,\vec{S_v}]\) &
+s\tabularnewline
+\(\vec{a}\) & Propensity vector: \([a_1,...,a_v]^{T}\) &
+a\tabularnewline
+\bottomrule
+\end{longtable}
+
+where \(u\), and \(v\) are numbers of total chemicals and reactions
+
+\begin{itemize}
+\item
+  \emph{Think further: how to sample exponential distribution by uniform
+  distribution(\href{http://q-bio.org/w/images/3/37/Slides-Munsky.pdf}{page
+  19 in ref})}:
+
+  we needs to sample \(T_{wait} \sim exp(\alpha)\), and we may need a
+  way to generate it from \(R \sim Uniform(0,1)\) which is the more
+  common. It is important to re-state the cumulative function again:
+
+  \begin{itemize}
+  \item
+    \(P(0 \leq T_{wait} \leq t) = 1 - e^{-\alpha t}\)
+  \item
+    \(P(0 \leq R \leq r) = r\)
+  \item
+    Lemma: if \(\tau = \frac{1}{\alpha} ln(\frac{1}{R})\), then
+    \(\tau \sim exp(\alpha)\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Proof:
+    \end{itemize}
+  \end{itemize}
+
+  \begin{align}
+  P(0 \leq \tau \leq t) &= P(0 \leq \frac{1}{\alpha} ln(\frac{1}{R}) \leq t) \\
+                        &= P(0 \leq ln\frac{1}{R} < \alpha t) \\
+                        &= P(1 \leq \frac{1}{R} \leq e^{\alpha t}) \\
+                        &= P(e^{-\alpha t} \leq R \leq 1) \\
+                        &= 1 - e^{-\alpha t} \\
+  \end{align}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Therefore, \(\tau \sim exp(\alpha)\)
+  \end{itemize}
+\end{itemize}
+
+    \subsubsection{Define stochastic
+reaction}\label{define-stochastic-reaction}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{stochastic\PYZus{}reaction}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{K}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Stochastic Reaction }
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Arguments:}
+        \PY{l+s+sd}{            N: state vector. [N\PYZus{}A, N\PYZus{}B, N\PYZus{}C]}
+        \PY{l+s+sd}{            K: constant vector. }
+        \PY{l+s+sd}{            }
+        \PY{l+s+sd}{    Return:}
+        \PY{l+s+sd}{            s: stoichiometry matrix [reaction\PYZus{}index, agent\PYZus{}index]}
+        \PY{l+s+sd}{            a: propensity vector [a\PYZus{}1,.., a\PYZus{}v]}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{N\PYZus{}A}\PY{p}{,} \PY{n}{N\PYZus{}R}\PY{p}{,} \PY{n}{N\PYZus{}C} \PY{o}{=} \PY{n}{N}
+            \PY{n}{y\PYZus{}a}\PY{p}{,} \PY{n}{b\PYZus{}a}\PY{p}{,}\PY{n}{k\PYZus{}a}\PY{p}{,}\PY{n}{a\PYZus{}0}\PY{p}{,}\PY{n}{d\PYZus{}a}\PY{p}{,}\PY{n}{y\PYZus{}r}\PY{p}{,}\PY{n}{b\PYZus{}r}\PY{p}{,}\PY{n}{k\PYZus{}r}\PY{p}{,}\PY{n}{k\PYZus{}c}\PY{p}{,}\PY{n}{d\PYZus{}r} \PY{o}{=} \PY{n}{K}
+            
+            \PY{c+c1}{\PYZsh{} Define stoichiometry matrix: state vector [R\PYZus{}1,...,R\PYZus{}v]}
+            \PY{c+c1}{\PYZsh{} R\PYZus{}i = [dn\PYZus{}1,...,dn\PYZus{}u]}
+            \PY{n}{s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+                         \PY{p}{[}\PY{n}{b\PYZus{}a}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                         \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{b\PYZus{}r}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                         \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                         \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                         \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                         \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                        \PY{p}{]}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Define propensity vector}
+            \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+                          \PY{p}{(}\PY{n}{y\PYZus{}a} \PY{o}{/} \PY{n}{b\PYZus{}a}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{a\PYZus{}0} \PY{o}{+} \PY{n}{N\PYZus{}A} \PY{o}{/} \PY{n}{k\PYZus{}a}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{N\PYZus{}A} \PY{o}{/} \PY{n}{k\PYZus{}a}\PY{p}{)}\PY{p}{,}
+                          \PY{p}{(}\PY{n}{y\PYZus{}r} \PY{o}{/} \PY{n}{b\PYZus{}r}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{N\PYZus{}A}\PY{o}{/}\PY{n}{k\PYZus{}r}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{N\PYZus{}A}\PY{o}{/}\PY{n}{k\PYZus{}r}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{d\PYZus{}a} \PY{o}{*} \PY{n}{N\PYZus{}A}\PY{p}{,}
+                           \PY{n}{d\PYZus{}r} \PY{o}{*} \PY{n}{N\PYZus{}R}\PY{p}{,}
+                           \PY{n}{k\PYZus{}c} \PY{o}{*} \PY{n}{N\PYZus{}A} \PY{o}{*} \PY{n}{N\PYZus{}R}\PY{p}{,}
+                           \PY{n}{d\PYZus{}a} \PY{o}{*} \PY{n}{N\PYZus{}C}
+                        \PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{s}\PY{p}{,} \PY{n}{a}
+\end{Verbatim}
+
+
+    \subsubsection{Define Stochastic Simulation Alogrithm
+(SSA)}\label{define-stochastic-simulation-alogrithm-ssa}
+
+    \begin{itemize}
+\tightlist
+\item
+  Reference:
+  \href{https://docs.python.org/3.6/tutorial/classes.html}{python3.6
+  Class operation basics}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{c+c1}{\PYZsh{} Set inital state N}
+        \PY{n}{N\PYZus{}A0}\PY{p}{,} \PY{n}{N\PYZus{}R0}\PY{p}{,} \PY{n}{N\PYZus{}C0} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}
+        \PY{n}{N} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{N\PYZus{}A0}\PY{p}{,} \PY{n}{N\PYZus{}R0}\PY{p}{,} \PY{n}{N\PYZus{}C0}\PY{p}{]}\PY{p}{)}
+        
+        \PY{k}{class} \PY{n+nc}{SSA}\PY{p}{:}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{stochastic\PYZus{}reaction}\PY{p}{,} \PY{n}{N}\PY{p}{,} \PY{n}{K}\PY{p}{,} \PY{n}{t\PYZus{}max}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{samp\PYZus{}rate}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{first\PYZhy{}reaction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{stochastic\PYZus{}reaction} \PY{o}{=} \PY{n}{stochastic\PYZus{}reaction}
+                
+                \PY{c+c1}{\PYZsh{} History of state vector}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{N} \PY{o}{=} \PY{n}{N}
+                
+                \PY{c+c1}{\PYZsh{} Constants}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{K} \PY{o}{=} \PY{n}{K}
+            
+                \PY{c+c1}{\PYZsh{} T\PYZus{}max}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t\PYZus{}max} \PY{o}{=} \PY{n}{t\PYZus{}max}
+                
+                \PY{c+c1}{\PYZsh{} History of time}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                
+                \PY{c+c1}{\PYZsh{} Histroy of reaction index}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{r} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                
+                \PY{c+c1}{\PYZsh{} Samp\PYZus{}rate}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h} \PY{o}{=} \PY{n}{samp\PYZus{}rate}
+                
+                \PY{c+c1}{\PYZsh{} Method}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o}{=} \PY{n}{method}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}iter\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}next\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{n}{s}\PY{p}{,} \PY{n}{a} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{stochastic\PYZus{}reaction}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{N}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{K}\PY{p}{)}
+                
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{first\PYZhy{}reaction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{n}{t\PYZus{}wait}\PY{p}{,} \PY{n}{r\PYZus{}nexti} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{samp\PYZus{}expFirst}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+                \PY{k}{elif} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{n}{t\PYZus{}wait}\PY{p}{,} \PY{n}{r\PYZus{}nexti} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{samp\PYZus{}expDirect}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{ValueError}
+                
+                \PY{c+c1}{\PYZsh{} Forward time t}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{t\PYZus{}wait}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} Stop iteration once t \PYZgt{} t\PYZus{}max}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t\PYZus{}max}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{StopIteration}
+                
+                \PY{c+c1}{\PYZsh{} Forward reaction i}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{N} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{N} \PY{o}{+} \PY{n}{s}\PY{p}{[}\PY{n}{r\PYZus{}nexti}\PY{p}{]}
+                
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{N}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+            
+            \PY{k}{def} \PY{n+nf}{hazards}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{a}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h} \PY{o}{*} \PY{n}{a}
+            
+            \PY{k}{def} \PY{n+nf}{samp\PYZus{}expFirst}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{a}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{        Sampling exponential distribution with propensity c}
+        \PY{l+s+sd}{        Arguments:}
+        \PY{l+s+sd}{                s: stoichiometry vector}
+        \PY{l+s+sd}{                a: propensity vector}
+        \PY{l+s+sd}{        Returm: }
+        \PY{l+s+sd}{                t\PYZus{}wait: min of t\PYZus{}wait sampling of reactions}
+        \PY{l+s+sd}{                r\PYZus{}nexti: index of next reaction}
+        \PY{l+s+sd}{        \PYZsq{}\PYZsq{}\PYZsq{}}
+                \PY{c+c1}{\PYZsh{} Report stoichiometry vector and propensity vector}
+                
+                \PY{c+c1}{\PYZsh{} Sampling waiting times}
+                \PY{n}{t\PYZus{}waits\PYZus{}samp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{0}
+                
+                \PY{c+c1}{\PYZsh{} Rescale hazards with h = 1}
+                \PY{n}{a} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hazards}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+                \PY{k}{for} \PY{n}{a\PYZus{}i} \PY{o+ow}{in} \PY{n}{a}\PY{p}{:}
+                    
+                    \PY{c+c1}{\PYZsh{} avoid 1/p = 1/0}
+                    \PY{k}{if} \PY{n}{a\PYZus{}i} \PY{o}{==} \PY{l+m+mf}{0.0}\PY{p}{:} 
+                        \PY{c+c1}{\PYZsh{} set infinity as \PYZhy{}1}
+                        \PY{n}{t\PYZus{}waits\PYZus{}samp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                        \PY{k}{continue}
+                        
+                    \PY{n}{r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{} avoid 1/r = 1/0}
+                    \PY{k}{while} \PY{n}{r} \PY{o}{==} \PY{l+m+mf}{0.0}\PY{p}{:}   
+                        \PY{n}{r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                            
+                    \PY{c+c1}{\PYZsh{} probability rescale}
+                    \PY{n}{t\PYZus{}waits\PYZus{}samp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{/}\PY{n}{a\PYZus{}i}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{/} \PY{n}{r}\PY{p}{)}\PY{p}{)}
+                    
+                
+                \PY{c+c1}{\PYZsh{} determine t\PYZus{}wait and next reaction}
+                \PY{n}{t\PYZus{}wait}\PY{p}{,} \PY{n}{r\PYZus{}nexti} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{choose\PYZus{}positive\PYZus{}min}\PY{p}{(}\PY{n}{t\PYZus{}waits\PYZus{}samp}\PY{p}{)}
+                
+                \PY{k}{return} \PY{n}{t\PYZus{}wait}\PY{p}{,} \PY{n}{r\PYZus{}nexti}
+            
+            \PY{k}{def} \PY{n+nf}{samp\PYZus{}expDirect}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{a}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Two random variables}
+                \PY{n}{r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mf}{0.0001}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{num} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+                \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{c+c1}{\PYZsh{} Cumulation of propensities ratio}
+                \PY{n}{cum\PYZus{}p} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{k}{for} \PY{n}{a\PYZus{}i} \PY{o+ow}{in} \PY{n}{a}\PY{p}{:}
+                    \PY{n}{cum\PYZus{}p} \PY{o}{+}\PY{o}{=} \PY{n}{a\PYZus{}i}
+                    \PY{k}{if} \PY{n}{r} \PY{o}{\PYZlt{}} \PY{n}{cum\PYZus{}p}\PY{p}{:}
+                        \PY{k}{break}
+                    \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                
+                \PY{k}{return} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{num}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{t}\PY{p}{)}\PY{p}{,} \PY{n}{i} 
+                    
+            
+            \PY{k}{def} \PY{n+nf}{choose\PYZus{}positive\PYZus{}min}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{array}\PY{p}{)}\PY{p}{:}
+                \PY{n}{unsort\PYZus{}arr} \PY{o}{=} \PY{n}{array}
+                \PY{n}{array} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{array}\PY{p}{)}
+                \PY{n}{sorted\PYZus{}i} \PY{o}{=} \PY{n}{array}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}
+                \PY{n}{array}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+                \PY{n}{nonzero\PYZus{}i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{array} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n}{arg\PYZus{}mini} \PY{o}{=} \PY{n}{sorted\PYZus{}i}\PY{p}{[}\PY{n}{nonzero\PYZus{}i}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+                \PY{n}{positive\PYZus{}mini} \PY{o}{=} \PY{n}{unsort\PYZus{}arr}\PY{p}{[}\PY{n}{arg\PYZus{}mini}\PY{p}{]}
+                \PY{k}{return} \PY{n}{positive\PYZus{}mini}\PY{p}{,} \PY{n}{arg\PYZus{}mini}
+                    
+\end{Verbatim}
+
+
+    \subsection{Stochastic simulation}\label{stochastic-simulation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Set parameters}
+        \PY{n}{param} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{]}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{]}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{c+c1}{\PYZsh{} Set simulation class}
+        \PY{n}{sim} \PY{o}{=} \PY{n}{SSA}\PY{p}{(}\PY{n}{stochastic\PYZus{}reaction}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{param}\PY{p}{,} \PY{n}{t\PYZus{}max}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{samp\PYZus{}rate}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{first\PYZhy{}reaction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Run iteration and stored results}
+        \PY{n}{N} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{j} \PY{o+ow}{in} \PY{n}{sim}\PY{p}{:}
+            \PY{n}{N} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{p}{)}
+            \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{j}\PY{p}{)}
+            
+        \PY{n}{N} \PY{o}{=} \PY{n}{N}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Plot stochastic
+simulation}\label{plot-stochastic-simulation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{rc}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{311}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{N}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[A]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise\PYZhy{}induced oscillations (\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{delta\PYZus{}R=0.1\PYZdl{}) (SSA)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{312}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{N}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[B]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{313}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{N}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[C]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Conclusion of 1.(a)}\label{conclusion-of-1.a}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  It behaves in the pattern of quasi-periodic behavior.
+\end{enumerate}
+
+    \subsection{1.(b) Deterministic
+simulation}\label{b-deterministic-simulation}
+
+    \subsubsection{Define deterministic
+reaction}\label{define-deterministic-reaction}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{deterministic\PYZus{}reaction}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{K}\PY{p}{)}\PY{p}{:}
+            \PY{n}{N\PYZus{}A}\PY{p}{,} \PY{n}{N\PYZus{}R}\PY{p}{,} \PY{n}{N\PYZus{}C} \PY{o}{=} \PY{n}{N}
+            \PY{n}{y\PYZus{}a}\PY{p}{,} \PY{n}{b\PYZus{}a}\PY{p}{,}\PY{n}{k\PYZus{}a}\PY{p}{,}\PY{n}{a\PYZus{}0}\PY{p}{,}\PY{n}{d\PYZus{}a}\PY{p}{,}\PY{n}{y\PYZus{}r}\PY{p}{,}\PY{n}{b\PYZus{}r}\PY{p}{,}\PY{n}{k\PYZus{}r}\PY{p}{,}\PY{n}{k\PYZus{}c}\PY{p}{,}\PY{n}{d\PYZus{}r} \PY{o}{=} \PY{n}{K}
+            
+            \PY{n}{dfdt} \PY{o}{=} \PY{p}{[}
+                \PY{p}{(}\PY{n}{y\PYZus{}a}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{a\PYZus{}0} \PY{o}{+} \PY{n}{N\PYZus{}A} \PY{o}{/} \PY{n}{k\PYZus{}a}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{N\PYZus{}A} \PY{o}{/} \PY{n}{k\PYZus{}a}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{k\PYZus{}c} \PY{o}{*} \PY{n}{N\PYZus{}A} \PY{o}{*} \PY{n}{N\PYZus{}R} \PY{o}{\PYZhy{}} \PY{n}{d\PYZus{}a} \PY{o}{*} \PY{n}{N\PYZus{}A}\PY{p}{,}
+                \PY{p}{(}\PY{n}{y\PYZus{}r}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{N\PYZus{}A}\PY{o}{/}\PY{n}{k\PYZus{}r}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{N\PYZus{}A}\PY{o}{/}\PY{n}{k\PYZus{}r}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{k\PYZus{}c} \PY{o}{*} \PY{n}{N\PYZus{}A} \PY{o}{*} \PY{n}{N\PYZus{}R} \PY{o}{+} \PY{n}{d\PYZus{}a} \PY{o}{*} \PY{n}{N\PYZus{}C} \PY{o}{\PYZhy{}} \PY{n}{d\PYZus{}r} \PY{o}{*} \PY{n}{N\PYZus{}R}\PY{p}{,}
+                \PY{n}{k\PYZus{}c} \PY{o}{*} \PY{n}{N\PYZus{}A} \PY{o}{*} \PY{n}{N\PYZus{}R} \PY{o}{\PYZhy{}} \PY{n}{d\PYZus{}a} \PY{o}{*} \PY{n}{N\PYZus{}C}
+            \PY{p}{]}
+            
+            \PY{k}{return} \PY{n}{dfdt}
+\end{Verbatim}
+
+
+    \subsubsection{Deterministic simulation}\label{deterministic-simulation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{integrate} \PY{k}{import} \PY{n}{odeint}
+        
+        \PY{c+c1}{\PYZsh{} Set parameters d\PYZus{}r=0.1}
+        \PY{n}{param} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{]}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{c+c1}{\PYZsh{} ODE solver parameters}
+        \PY{n}{abserr} \PY{o}{=} \PY{l+m+mf}{1.0e\PYZhy{}8}
+        \PY{n}{relerr} \PY{o}{=} \PY{l+m+mf}{1.0e\PYZhy{}6}
+        \PY{n}{t\PYZus{}max} \PY{o}{=} \PY{l+m+mf}{100.0}
+        \PY{n}{numpoints} \PY{o}{=} \PY{l+m+mi}{500}
+        
+        \PY{c+c1}{\PYZsh{} Create the time samples for the output of the ODE solver.}
+        \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{t\PYZus{}max}\PY{p}{,} \PY{n}{numpoints}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Call the ODE solver }
+        \PY{n}{wsol} \PY{o}{=} \PY{n}{odeint}\PY{p}{(}\PY{n}{deterministic\PYZus{}reaction}\PY{p}{,} \PY{n}{param}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{param}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{n}{atol}\PY{o}{=}\PY{n}{abserr}\PY{p}{,} \PY{n}{rtol}\PY{o}{=}\PY{n}{relerr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Plot deterministic simulation
+(\(\delta_R = 0.1\))}{Plot deterministic simulation (\textbackslash{}delta\_R = 0.1)}}\label{plot-deterministic-simulation-delta_r-0.1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{rc}
+        
+        \PY{n}{fig\PYZus{}reaction} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{label} \PY{o}{=} \PY{p}{[}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[A]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[R]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[C]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{wsol}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{wsol}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise\PYZhy{}induced oscillations (\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{delta\PYZus{}R\PYZdl{}=0.1) (ODE)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Text(0,0.5,'Concentration')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{\texorpdfstring{Simulate and Plot deterministic
+simulation
+(\(\delta_R = 0.2\))}{Simulate and Plot deterministic simulation (\textbackslash{}delta\_R = 0.2)}}\label{simulate-and-plot-deterministic-simulation-delta_r-0.2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Set parameters}
+         \PY{n}{param2} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{]}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{c+c1}{\PYZsh{} Solve ODE}
+         \PY{n}{wsol2} \PY{o}{=} \PY{n}{odeint}\PY{p}{(}\PY{n}{deterministic\PYZus{}reaction}\PY{p}{,} \PY{n}{param}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{param2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{p}{)}
+                       \PY{p}{,} \PY{n}{atol}\PY{o}{=}\PY{n}{abserr}\PY{p}{,} \PY{n}{rtol}\PY{o}{=}\PY{n}{relerr}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot}
+         \PY{n}{fig\PYZus{}reaction} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{label} \PY{o}{=} \PY{p}{[}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[A]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[R]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[C]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{wsol2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{wsol2}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise\PYZhy{}induced oscillations (\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{delta\PYZus{}R\PYZdl{}=0.2) (ODE)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Text(0,0.5,'Concentration')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Conclustion of 1.(b):}\label{conclustion-of-1.b}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Does the system exhibit oscillation?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This system doesn't oscillate and decays when \(\delta_R=0.1\).
+    However, it oscillates when \(\delta_R=0.2\)
+  \end{itemize}
+\end{enumerate}
+
+    \subsection{1.(c) Properties of Initial
+conditions}\label{c-properties-of-initial-conditions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{param3} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{]}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{param4} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{]}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{t\PYZus{}max} \PY{o}{=} \PY{l+m+mf}{100.0}
+         \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{t\PYZus{}max}\PY{p}{,} \PY{n}{numpoints}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Solve ODE}
+         \PY{n}{wsol3} \PY{o}{=} \PY{n}{odeint}\PY{p}{(}\PY{n}{deterministic\PYZus{}reaction}\PY{p}{,} \PY{n}{param3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{param3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{p}{)}
+                       \PY{p}{,} \PY{n}{atol}\PY{o}{=}\PY{n}{abserr}\PY{p}{,} \PY{n}{rtol}\PY{o}{=}\PY{n}{relerr}\PY{p}{)}
+         
+         \PY{n}{wsol4} \PY{o}{=} \PY{n}{odeint}\PY{p}{(}\PY{n}{deterministic\PYZus{}reaction}\PY{p}{,} \PY{n}{param4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{param4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{p}{)}
+                       \PY{p}{,} \PY{n}{atol}\PY{o}{=}\PY{n}{abserr}\PY{p}{,} \PY{n}{rtol}\PY{o}{=}\PY{n}{relerr}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Plot 3}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}fig\PYZus{}reaction = plt.figure(figsize=(10,7))}
+         \PY{n}{label} \PY{o}{=} \PY{p}{[}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[A]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[R]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[C]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{wsol3}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{wsol3}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise\PYZhy{}induced oscillations ((a, r, c) = (0, 10, 35)) (ODE)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot 4}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}fig\PYZus{}reaction = plt.figure(figsize=(10,7))}
+         \PY{n}{label} \PY{o}{=} \PY{p}{[}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[A]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[R]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[C]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{wsol4}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{wsol4}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise\PYZhy{}induced oscillations ((a, r, c) = (5, 10, 35) (ODE)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} Text(0,0.5,'Concentration')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Conclusion of 1.(c)}\label{conclusion-of-1.c}
+
+With parameter \(\delta_R=0.1\)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  When \([A]_{t=0}=0\), there is no oscillation, and \([R]\), \([C]\)
+  converge.
+\item
+  When \([A]_{t=0}=5\), there is only one spike in the beginning, then
+  all of variables converge.
+\item
+  With higher \(\delta_{R}\), the repressor decreases faster, and then
+  possibly unlock activator \([A]\), inducing spikes.
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
